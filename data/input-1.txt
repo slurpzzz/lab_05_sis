@@ -8,4 +8,13 @@ student cc2
 unenroll cc2 4
 student cc2
 course 4
+enroll aa0 2
+course 0
+course 2
+enroll cc2 11
+course 11
+student cc2
+unroll aa0 2
+unenroll cc2 11
+student jrc
 quit

@@ -5,3 +5,4 @@
 5,Professional_Communications,400
 4,Principles_of_Data_Management,300
 10,Aspect_Oriented_Programming,500
+11,Mechanics_of_Programming,200

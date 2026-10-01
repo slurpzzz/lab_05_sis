@@ -1,4 +1,3 @@
-$ java SIS data/course1.txt data/professor-1.txt data/student-1.txt data/input-1.txt
 > help
 course {id}: list a course
 courses: list all courses (by course id)
@@ -17,6 +16,7 @@ Course{id=4, name='Principles_of_Data_Management', level=300, professor=mjk, stu
 Course{id=5, name='Professional_Communications', level=400, professor=hpb, students=[bb3]}
 Course{id=6, name='Computer_Graphics_1', level=500, professor=hpb, students=[cc2]}
 Course{id=10, name='Aspect_Oriented_Programming', level=500, professor=hpb, students=[]}
+Course{id=11, name='Mechanics_of_Programming', level=200, professor=wrc, students=[]}
 > users
 User{username='aa0', type=STUDENT, courses=[Computer_Science_1, Computer_Science_2, Mechanics_of_Programming]}
 User{username='bb1', type=STUDENT, courses=[Principles_of_Data_Management]}
@@ -25,6 +25,7 @@ User{username='cc2', type=STUDENT, courses=[Computer_Graphics_1, Computer_Scienc
 User{username='hae', type=PROFESSOR, courses=[Computer_Science_2]}
 User{username='hpb', type=PROFESSOR, courses=[Mechanics_of_Programming, Professional_Communications, Aspect_Oriented_Programming, Computer_Graphics_1]}
 User{username='mjk', type=PROFESSOR, courses=[Computer_Science_1, Principles_of_Data_Management]}
+User{username='wrc', type=PROFESSOR, courses=[Mechanics_of_Programming]}
 > professor hpb
 Course{id=3, name='Mechanics_of_Programming', level=200, professor=hpb, students=[aa0, bb3, cc2]}
 Course{id=5, name='Professional_Communications', level=400, professor=hpb, students=[bb3]}
@@ -53,4 +54,26 @@ Course{id=3, name='Mechanics_of_Programming', level=200, professor=hpb, students
 Course{id=5, name='Professional_Communications', level=400, professor=hpb, students=[bb3, cc2]}
 > course 4
 Course{id=4, name='Principles_of_Data_Management', level=300, professor=mjk, students=[bb1]}
+> enroll aa0 2
+student aa0 is already enrolled in course 2!
+> course 0
+course 0 does not exist!
+> course 2
+Course{id=2, name='Computer_Science_2', level=100, professor=hae, students=[aa0, cc2]}
+> enroll cc2 11
+student cc2 is already enrolled in course 11!
+> course 11
+Course{id=11, name='Mechanics_of_Programming', level=200, professor=wrc, students=[]}
+> student cc2
+Course{id=6, name='Computer_Graphics_1', level=500, professor=hpb, students=[cc2]}
+Course{id=1, name='Computer_Science_1', level=100, professor=mjk, students=[aa0, bb3, cc2]}
+Course{id=2, name='Computer_Science_2', level=100, professor=hae, students=[aa0, cc2]}
+Course{id=3, name='Mechanics_of_Programming', level=200, professor=hpb, students=[aa0, bb3, cc2]}
+Course{id=5, name='Professional_Communications', level=400, professor=hpb, students=[bb3, cc2]}
+> unroll aa0 2
+Unrecognized command unroll
+> unenroll cc2 11
+student cc2 is not enrolled in course 11!
+> student jrc
+jrc does not exist!
 > quit
