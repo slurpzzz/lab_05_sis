@@ -26,12 +26,12 @@ public class Course implements Comparable<Course> {
      */
     private String professor;
     /**
-     * students enrolled in the course (unique), empty if none
+     * students enrolled in the course, empty if none
      */
-    private final HashSet<String> students;
+    private final Set<String> students;
 
     /**
-     * Create a course.  Initially there is no professor or student for the
+     * Create a course.  Initially there is no professor or students for the
      * course.
      *
      * @param id    course id
@@ -89,7 +89,7 @@ public class Course implements Comparable<Course> {
     /**
      * Get the students enrolled in the course.
      *
-     * @return the students, organized by interally by hash codes. if there
+     * @return the students, organized internally by hash codes. If there
      * are no students enrolled the list should be empty.
      */
     public Collection<String> getStudents() {
@@ -103,7 +103,7 @@ public class Course implements Comparable<Course> {
      *
      * @param username the username of the professor
      */
-    public void addProfessor(String username) {
+    public void setProfessor(String username) {
         // TODO
     }
 

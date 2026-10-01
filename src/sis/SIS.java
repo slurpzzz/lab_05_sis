@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Scanner;
 
 /**
- * The main program and "front end" for the sis.user.Student Information System.  It
+ * The main program and "front end" for the Student Information System.  It
  * is run on the command line in two ways:<br>
  * <br>
  * $ java SIS course-file professor-file student-file<br>
@@ -108,7 +108,7 @@ public class SIS {
             if (!stdin) {
                 System.out.println(line);
             }
-            String fields[] = line.split("\\s+");
+            String[] fields = line.split("\\s+");
 
             // TODO handle commands here
             if (fields[0].equals(HELP)) {

@@ -10,7 +10,7 @@ import java.util.Comparator;
  */
 public class CourseComparator implements Comparator<Course> {
     @Override
-    public int compare(Course o1, Course o2) {
+    public int compare(Course c1, Course c2) {
         // TODO
         return 0;
     }
