@@ -1,3 +1,4 @@
+$ java SIS data/course1.txt data/professor-1.txt data/student-1.txt data/input-1.txt
 > help
 course {id}: list a course
 courses: list all courses (by course id)
@@ -55,13 +56,13 @@ Course{id=5, name='Professional_Communications', level=400, professor=hpb, stude
 > course 4
 Course{id=4, name='Principles_of_Data_Management', level=300, professor=mjk, students=[bb1]}
 > enroll aa0 2
-student aa0 is already enrolled in course 2!
+student aa0 is already enrolled in course 'Computer_Science_2'!
 > course 0
 course 0 does not exist!
 > course 2
 Course{id=2, name='Computer_Science_2', level=100, professor=hae, students=[aa0, cc2]}
 > enroll cc2 11
-student cc2 is already enrolled in course 11!
+student cc2 is already enrolled in course 'Mechanics_of_Programming'!
 > course 11
 Course{id=11, name='Mechanics_of_Programming', level=200, professor=wrc, students=[]}
 > student cc2
