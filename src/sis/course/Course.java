@@ -52,8 +52,7 @@ public class Course implements Comparable<Course> {
      * @return course id
      */
     public int getId() {
-        // TODO
-        return 0;
+        return this.id;
     }
 
     /**
@@ -62,8 +61,7 @@ public class Course implements Comparable<Course> {
      * @return course name
      */
     public String getName() {
-        // TODO
-        return null;
+        return this.name;
     }
 
     /**
@@ -72,8 +70,7 @@ public class Course implements Comparable<Course> {
      * @return course level
      */
     public int getLevel() {
-        // TODO
-        return 0;
+        return this.level;
     }
 
     /**
@@ -82,8 +79,7 @@ public class Course implements Comparable<Course> {
      * @return the professor, if none, null
      */
     public String getProfessor() {
-        // TODO
-        return null;
+        return this.professor;
     }
 
     /**
@@ -93,8 +89,7 @@ public class Course implements Comparable<Course> {
      * are no students enrolled the list should be empty.
      */
     public Collection<String> getStudents() {
-        // TODO
-        return null;
+        return this.students;
     }
 
     /**
@@ -104,7 +99,7 @@ public class Course implements Comparable<Course> {
      * @param username the username of the professor
      */
     public void setProfessor(String username) {
-        // TODO
+        this.professor = username;
     }
 
     /**
@@ -115,7 +110,6 @@ public class Course implements Comparable<Course> {
      * @return whether the student was added or not
      */
     public boolean addStudent(String username) {
-        // TODO
         return false;
     }
 
@@ -141,8 +135,7 @@ public class Course implements Comparable<Course> {
      */
     @Override
     public int compareTo(Course other) {
-        // TODO
-        return 0;
+        return this.id - other.id;
     }
 
     /**
@@ -153,7 +146,7 @@ public class Course implements Comparable<Course> {
      */
     @Override
     public boolean equals(Object other) {
-        // TODO
+        if (other instanceof Course c) return this.id == c.id;
         return false;
     }
 
@@ -163,8 +156,7 @@ public class Course implements Comparable<Course> {
      * @return the hash code
      */
     public int hashCode() {
-        // TODO
-        return 0;
+        return this.id;
     }
 
 
@@ -182,7 +174,6 @@ public class Course implements Comparable<Course> {
      */
     @Override
     public String toString() {
-        // TODO
-        return null;
+        return "Course{id=%d, name=%s, level=%d, professor=%s, students=%s}".formatted(this.id, this.name, this.level, this.professor, this.students);
     }
 }
