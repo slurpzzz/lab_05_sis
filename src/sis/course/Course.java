@@ -6,7 +6,7 @@ import java.util.*;
  * Represents a course.
  *
  * @author RIT CS
- * @author YOUR NAME HERE
+ * @author JUSTIN SPADONE
  */
 public class Course implements Comparable<Course> {
     /**
@@ -110,7 +110,9 @@ public class Course implements Comparable<Course> {
      * @return whether the student was added or not
      */
     public boolean addStudent(String username) {
-        return false;
+        if (students.contains(username)) return false;
+        students.add(username);
+        return true;
     }
 
     /**
@@ -121,7 +123,10 @@ public class Course implements Comparable<Course> {
      * @return true if the student was removed, false if the student was not in the course
      */
     public boolean removeStudent(String username) {
-        // TODO
+        if (students.contains(username)) {
+            students.remove(username);
+            return true;
+        }
         return false;
     }
 
@@ -174,6 +179,6 @@ public class Course implements Comparable<Course> {
      */
     @Override
     public String toString() {
-        return "Course{id=%d, name=%s, level=%d, professor=%s, students=%s}".formatted(this.id, this.name, this.level, this.professor, this.students);
+        return "Course{id=%d, name='%s', level=%d, professor=%s, students=%s}".formatted(this.id, this.name, this.level, this.professor, this.students);
     }
 }

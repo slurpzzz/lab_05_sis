@@ -17,9 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TestCourse {
 
-    /** standard output capturer */
+    /**
+     * standard output capturer
+     */
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    /** assortment of Course objects used on the test methods */
+    /**
+     * assortment of Course objects used on the test methods
+     */
     private static Course cs1;
     private static Course cs2;
     private static Course mop;
@@ -27,7 +31,7 @@ public class TestCourse {
     private static Course plc;
 
     @BeforeAll
-    public static void initCourses(){
+    public static void initCourses() {
         // initializing an assortment of Course objects
         cs1 = new Course(1, "Computer_Science_1", 100);
         cs2 = new Course(2, "Computer_Science_2", 100);
@@ -42,7 +46,9 @@ public class TestCourse {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
-    /** Test Course equality implementation */
+    /**
+     * Test Course equality implementation
+     */
     @Test
     public void testEquality() {
         List<Course> courseList = new ArrayList<>();
@@ -109,7 +115,7 @@ public class TestCourse {
      * Test Course hash code implementation
      */
     @Test
-    public void testHashCode(){
+    public void testHashCode() {
         // using a LinkedHashMap to preserve insertion order
         // otherwise we won't be able to match the order of the expected output
         Map<Course, String> courseMap = new LinkedHashMap<>();
@@ -124,9 +130,11 @@ public class TestCourse {
         expected += "Analysis_Of_Algorithms";
 
         // loop over the map and print out the matching ones here
-        // TODO
+        courseMap.forEach((key, val) -> {
+            if ("A".equals(val)) System.out.println(key.getName());
+        });
 
         // TODO Uncomment the following assertEquals to verify the correctness of this test
-        //assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, outputStreamCaptor.toString().trim());
     }
 }
