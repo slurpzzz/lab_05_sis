@@ -31,13 +31,13 @@ public class Backend {
         try (Scanner in = new Scanner(new File(professorFile))) {
             while (in.hasNext()) {
                 String[] fields = in.nextLine().split(",");
-                String name = fields[0];
-                Professor prof = new Professor(name);
+                String username = fields[0];
+                Professor prof = new Professor(username);
                 int[] ids = Arrays.stream(fields, 1, fields.length).mapToInt(Integer::parseInt).toArray();
                 for (int id : ids) {
                     Course c = courseDB.getValue(id);
                     prof.addCourse(c);
-                    c.setProfessor(prof.getUsername());
+                    c.setProfessor(username);
                 }
                 userDB.addValue(prof);
             }
@@ -45,13 +45,13 @@ public class Backend {
         try (Scanner in = new Scanner(new File(studentFile))) {
             while (in.hasNext()) {
                 String[] fields = in.nextLine().split(",");
-                String name = fields[0];
-                Student stu = new Student(name);
+                String username = fields[0];
+                Student stu = new Student(username);
                 int[] ids = Arrays.stream(fields, 1, fields.length).mapToInt(Integer::parseInt).toArray();
                 for (int id : ids) {
                     Course c = courseDB.getValue(id);
                     stu.addCourse(c);
-                    c.addStudent(name);
+                    c.addStudent(username);
                 }
                 userDB.addValue(stu);
             }
@@ -70,10 +70,10 @@ public class Backend {
         if (!courseDB.hasKey(courseId) || !userDB.hasKey(username) || !(userDB.getValue(username) instanceof Student s))
             return false;
         Course c = courseDB.getValue(courseId);
-        if (c.getStudents().contains(username) || s.getCourses().contains(c)) return false;
-        c.addStudent(username);
-        s.addCourse(c);
-        return true;
+        boolean studentAdded = c.addStudent(username);
+        boolean courseAdded = s.addCourse(c);
+        return studentAdded || courseAdded;
+
     }
 
     public Collection<Course> getAllCourses() {
@@ -103,7 +103,12 @@ public class Backend {
     }
 
     public boolean unenrollStudent(String username, int courseId) {
-        return false;
+        if (!courseDB.hasKey(courseId) || !userDB.hasKey(username) || !(userDB.getValue(username) instanceof Student s))
+            return false;
+        Course c = courseDB.getValue(courseId);
+        boolean courseRemoved = s.removeCourse(c);
+        boolean studentRemoved = c.removeStudent(username);
+        return courseRemoved || studentRemoved;
     }
 
     public boolean userExists(String username) {

@@ -129,6 +129,12 @@ public class SIS {
         else System.out.println(username + " does not exist!");
     }
 
+    private void unenrollStudent(String username, int courseId) {
+        if (!backend.courseExists(courseId) && backend.isStudent(username)) return;
+        if (!backend.unenrollStudent(username, courseId))
+            System.out.printf("student %s is not enrolled in course %d!%n", username, courseId);
+    }
+
     /**
      * The main loop runs through the input commands that 'in' is attached
      * to via the Scanner.  It prompts with '&gt;'.  If the command is valid it calls
@@ -174,6 +180,9 @@ public class SIS {
                     break;
                 case PROFESSOR, STUDENT:
                     listUser(fields[1]);
+                    break;
+                case UNENROLL:
+                    unenrollStudent(fields[1], Integer.parseInt(fields[2]));
                     break;
                 case QUIT:
                     break label;

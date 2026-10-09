@@ -110,9 +110,7 @@ public class Course implements Comparable<Course> {
      * @return whether the student was added or not
      */
     public boolean addStudent(String username) {
-        if (students.contains(username)) return false;
-        students.add(username);
-        return true;
+        return students.add(username);
     }
 
     /**
@@ -123,11 +121,7 @@ public class Course implements Comparable<Course> {
      * @return true if the student was removed, false if the student was not in the course
      */
     public boolean removeStudent(String username) {
-        if (students.contains(username)) {
-            students.remove(username);
-            return true;
-        }
-        return false;
+        return students.remove(username);
     }
 
     /**
