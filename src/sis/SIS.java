@@ -1,4 +1,7 @@
 package sis;
+
+import sis.course.Course;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
@@ -34,37 +37,69 @@ import java.util.Scanner;
  * @author YOUR NAME HERE
  */
 public class SIS {
-    /** the course command */
+    /**
+     * the course command
+     */
     public final static String COURSE = "course";
-    /** the courses command */
+    /**
+     * the courses command
+     */
     public final static String COURSES = "courses";
-    /** the enroll command */
+    /**
+     * the enroll command
+     */
     public final static String ENROLL = "enroll";
-    /** the help command */
+    /**
+     * the help command
+     */
     public final static String HELP = "help";
-    /** the professor command */
+    /**
+     * the professor command
+     */
     public final static String PROFESSOR = "professor";
-    /** the student command */
+    /**
+     * the student command
+     */
     public final static String STUDENT = "student";
-    /** the unenroll command */
+    /**
+     * the unenroll command
+     */
     public final static String UNENROLL = "unenroll";
-    /** the users command */
+    /**
+     * the users command
+     */
     public final static String USERS = "users";
-    /** the quit command */
+    /**
+     * the quit command
+     */
     public final static String QUIT = "quit";
 
     // TODO add the backend data member here
+    private final Backend backend;
 
     /**
      * Create the backend.
      *
-     * @param courseFile the course file
+     * @param courseFile    the course file
      * @param professorFile the professor file
-     * @param studentFile the student file
+     * @param studentFile   the student file
      * @throws FileNotFoundException if any of the files cannot be found
      */
     public SIS(String courseFile, String professorFile, String studentFile) throws FileNotFoundException {
         // TODO create the backend here
+        backend = new Backend(courseFile, professorFile, studentFile);
+    }
+
+    private void listCourse(int courseId) {
+        Course c = backend.getCourse(courseId);
+        if (c == null) System.out.printf("course %d does not exist!%n", courseId);
+        else System.out.println(backend.getCourse(courseId));
+    }
+
+    private void listAllCourses(Collection<Course> courses) {
+        for (Course c : courses) {
+            System.out.println(c);
+        }
     }
 
     /**
@@ -85,16 +120,16 @@ public class SIS {
     /**
      * The main loop runs through the input commands that 'in' is attached
      * to via the Scanner.  It prompts with '&gt;'.  If the command is valid it calls
-     * the appropriate private helper method.  Otherwise it should display the message:<br>
+     * the appropriate private helper method.  Otherwise, it should display the message:<br>
      * <br>
      * Unrecognized command {command}<br>
      * <br>
      * And reprompts the user.
      *
-     * @param in a Scanner attached to the input (either stdin or the input file)
+     * @param in    a Scanner attached to the input (either stdin or the input file)
      * @param stdin tells whether the scanner is attached to stdin or not.  If
-     * not, the input command should be displayed to standard output so it is
-     * easier to follow the output.
+     *              not, the input command should be displayed to standard output so it is
+     *              easier to follow the output.
      */
     public void mainLoop(Scanner in, boolean stdin) {
         if (stdin) {
@@ -102,6 +137,7 @@ public class SIS {
         }
         System.out.print("> ");
         // continue looping until there is no more input
+        label:
         while (in.hasNext()) {
             // read the next command and then call the appropriate method to process it
             String line = in.nextLine();
@@ -111,12 +147,21 @@ public class SIS {
             String[] fields = line.split("\\s+");
 
             // TODO handle commands here
-            if (fields[0].equals(HELP)) {
-                helpMessage();
-            } else if (fields[0].equals(QUIT)) {
-                break;
-            } else {
-                System.out.println("Unrecognized command " + fields[0]);
+            switch (fields[0]) {
+                case COURSE:
+                    listCourse(Integer.parseInt(fields[1]));
+                    break;
+                case COURSES:
+                    listAllCourses(backend.getAllCourses());
+                    break;
+                case HELP:
+                    helpMessage();
+                    break;
+                case QUIT:
+                    break label;
+                default:
+                    System.out.println("Unrecognized command " + fields[0]);
+                    break;
             }
 
             // reprompt

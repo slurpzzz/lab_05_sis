@@ -2,6 +2,7 @@
   <configuration default="false" name="SIS" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="sis.SIS" />
     <module name="lab_05_sis" />
+    <option name="PROGRAM_PARAMETERS" value="data/course-1.txt data/professor-1.txt data/student-1.txt data/input-1.txt" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="sis.*" />
