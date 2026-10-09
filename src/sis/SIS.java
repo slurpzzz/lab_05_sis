@@ -1,6 +1,7 @@
 package sis;
 
 import sis.course.Course;
+import sis.user.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -123,6 +124,11 @@ public class SIS {
         System.out.println("quit: quit SIS");
     }
 
+    private void listUser(String username) {
+        if (backend.userExists(username)) listAllCourses(backend.getCoursesUser(username));
+        else System.out.println(username + " does not exist!");
+    }
+
     /**
      * The main loop runs through the input commands that 'in' is attached
      * to via the Scanner.  It prompts with '&gt;'.  If the command is valid it calls
@@ -165,6 +171,9 @@ public class SIS {
                     break;
                 case HELP:
                     helpMessage();
+                    break;
+                case PROFESSOR, STUDENT:
+                    listUser(fields[1]);
                     break;
                 case QUIT:
                     break label;

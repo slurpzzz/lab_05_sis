@@ -89,7 +89,7 @@ public class Backend {
     }
 
     public Collection<Course> getCoursesUser(String username) {
-        return List.of();
+        return userDB.getValue(username).getCourses();
     }
 
     private void initializeCourseDB(String courseFile) {
@@ -104,5 +104,9 @@ public class Backend {
 
     public boolean unenrollStudent(String username, int courseId) {
         return false;
+    }
+
+    public boolean userExists(String username) {
+        return userDB.hasKey(username);
     }
 }
