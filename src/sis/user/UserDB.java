@@ -4,7 +4,6 @@ import sis.DB;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 public class UserDB implements DB<String, User> {
 

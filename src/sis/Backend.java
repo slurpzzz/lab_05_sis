@@ -2,18 +2,21 @@ package sis;
 
 import sis.course.Course;
 import sis.course.CourseDB;
+import sis.user.Professor;
+import sis.user.Student;
 import sis.user.User;
 import sis.user.UserDB;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
 public class Backend {
     private CourseDB courseDB = new CourseDB();
-    private UserDB userDB;
+    private UserDB userDB = new UserDB();
 
     public Backend(String courseFile, String professorFile, String studentFile) throws FileNotFoundException {
         try (Scanner in = new Scanner(new File(courseFile))) {
@@ -25,6 +28,30 @@ public class Backend {
                 courseDB.addValue(new Course(id, name, level));
             }
         }
+        try (Scanner in = new Scanner(new File(professorFile))) {
+            while (in.hasNext()) {
+                String[] fields = in.nextLine().split(",");
+                String name = fields[0];
+                Professor prof = new Professor(name);
+                int[] ids = Arrays.stream(fields, 1, fields.length).mapToInt(Integer::parseInt).toArray();
+                for (int id : ids) {
+                    prof.addCourse(courseDB.getValue(id));
+                }
+                userDB.addValue(prof);
+            }
+        }
+        try (Scanner in = new Scanner(new File(studentFile))) {
+            while (in.hasNext()) {
+                String[] fields = in.nextLine().split(",");
+                String name = fields[0];
+                Student stu = new Student(name);
+                int[] ids = Arrays.stream(fields, 1, fields.length).mapToInt(Integer::parseInt).toArray();
+                for (int id : ids) {
+                    stu.addCourse(courseDB.getValue(id));
+                }
+                userDB.addValue(stu);
+            }
+        }
     }
 
     private void addCourses(User user, String[] courseIDs) {
@@ -32,7 +59,7 @@ public class Backend {
     }
 
     boolean courseExists(int id) {
-        return false;
+        return courseDB.hasKey(id);
     }
 
     boolean enrollStudent(String username, int courseId) {
@@ -62,7 +89,7 @@ public class Backend {
     }
 
     boolean isStudent(String username) {
-        return false;
+        return userDB.hasKey(username) && userDB.getValue(username).getType() == User.UserType.STUDENT;
     }
 
     boolean unenrollStudent(String username, int courseId) {

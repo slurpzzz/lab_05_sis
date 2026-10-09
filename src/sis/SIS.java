@@ -102,6 +102,12 @@ public class SIS {
         }
     }
 
+    private void enrollStudent(String username, int courseId) {
+        if (!backend.courseExists(courseId) && backend.isStudent(username)) return;
+        if (!backend.enrollStudent(username, courseId))
+            System.out.printf("student %s is already enrolled in course '%s'!%n", username, backend.getCourse(courseId).getName());
+    }
+
     /**
      * A helper method for displaying the help message.
      */
@@ -153,6 +159,9 @@ public class SIS {
                     break;
                 case COURSES:
                     listAllCourses(backend.getAllCourses());
+                    break;
+                case ENROLL:
+                    enrollStudent(fields[1], Integer.parseInt(fields[2]));
                     break;
                 case HELP:
                     helpMessage();
