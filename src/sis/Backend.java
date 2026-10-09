@@ -35,7 +35,9 @@ public class Backend {
                 Professor prof = new Professor(name);
                 int[] ids = Arrays.stream(fields, 1, fields.length).mapToInt(Integer::parseInt).toArray();
                 for (int id : ids) {
-                    prof.addCourse(courseDB.getValue(id));
+                    Course c = courseDB.getValue(id);
+                    prof.addCourse(c);
+                    c.setProfessor(prof.getUsername());
                 }
                 userDB.addValue(prof);
             }
@@ -47,7 +49,9 @@ public class Backend {
                 Student stu = new Student(name);
                 int[] ids = Arrays.stream(fields, 1, fields.length).mapToInt(Integer::parseInt).toArray();
                 for (int id : ids) {
-                    stu.addCourse(courseDB.getValue(id));
+                    Course c = courseDB.getValue(id);
+                    stu.addCourse(c);
+                    c.addStudent(name);
                 }
                 userDB.addValue(stu);
             }
@@ -58,27 +62,33 @@ public class Backend {
 
     }
 
-    boolean courseExists(int id) {
+    public boolean courseExists(int id) {
         return courseDB.hasKey(id);
     }
 
-    boolean enrollStudent(String username, int courseId) {
-        return false;
+    public boolean enrollStudent(String username, int courseId) {
+        if (!courseDB.hasKey(courseId) || !userDB.hasKey(username) || !(userDB.getValue(username) instanceof Student s))
+            return false;
+        Course c = courseDB.getValue(courseId);
+        if (c.getStudents().contains(username) || s.getCourses().contains(c)) return false;
+        c.addStudent(username);
+        s.addCourse(c);
+        return true;
     }
 
-    Collection<Course> getAllCourses() {
+    public Collection<Course> getAllCourses() {
         return courseDB.getAllValues();
     }
 
-    Collection<User> getAllUsers() {
+    public Collection<User> getAllUsers() {
         return List.of();
     }
 
-    Course getCourse(int id) {
+    public Course getCourse(int id) {
         return courseDB.getValue(id);
     }
 
-    Collection<Course> getCoursesUser(String username) {
+    public Collection<Course> getCoursesUser(String username) {
         return List.of();
     }
 
@@ -88,12 +98,11 @@ public class Backend {
     private void initializeUserDB(String professorFile, String studentFile) {
     }
 
-    boolean isStudent(String username) {
+    public boolean isStudent(String username) {
         return userDB.hasKey(username) && userDB.getValue(username).getType() == User.UserType.STUDENT;
     }
 
-    boolean unenrollStudent(String username, int courseId) {
+    public boolean unenrollStudent(String username, int courseId) {
         return false;
     }
-
 }
