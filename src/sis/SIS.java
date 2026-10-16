@@ -75,7 +75,6 @@ public class SIS {
      */
     public final static String QUIT = "quit";
 
-    // TODO add the backend data member here
     private final Backend backend;
 
     /**
@@ -87,7 +86,6 @@ public class SIS {
      * @throws FileNotFoundException if any of the files cannot be found
      */
     public SIS(String courseFile, String professorFile, String studentFile) throws FileNotFoundException {
-        // TODO create the backend here
         backend = new Backend(courseFile, professorFile, studentFile);
     }
 
@@ -98,9 +96,7 @@ public class SIS {
     }
 
     private void listAllCourses(Collection<Course> courses) {
-        for (Course c : courses) {
-            System.out.println(c);
-        }
+        courses.forEach(System.out::println);
     }
 
     private void enrollStudent(String username, int courseId) {
@@ -133,6 +129,10 @@ public class SIS {
         if (!backend.courseExists(courseId) && backend.isStudent(username)) return;
         if (!backend.unenrollStudent(username, courseId))
             System.out.printf("student %s is not enrolled in course %d!%n", username, courseId);
+    }
+
+    private void listAllUsers() {
+        backend.getAllUsers().forEach(System.out::println);
     }
 
     /**
@@ -183,6 +183,9 @@ public class SIS {
                     break;
                 case UNENROLL:
                     unenrollStudent(fields[1], Integer.parseInt(fields[2]));
+                    break;
+                case USERS:
+                    listAllUsers();
                     break;
                 case QUIT:
                     break label;

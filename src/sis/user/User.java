@@ -53,7 +53,8 @@ public class User implements Comparable<User> {
 
     @Override
     public String toString() {
-        return "User{username='%s', type=%s, courses=%s}".formatted(username, type, courses);
+        List<String> courseNames = courses.stream().map(Course::getName).toList();
+        return "User{username='%s', type=%s, courses=%s}".formatted(username, type, courseNames);
     }
 
     public enum UserType {
